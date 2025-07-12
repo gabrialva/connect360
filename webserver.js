@@ -3457,7 +3457,7 @@ module.exports.CreateWebServer = function (parent, db, args, certificates, doneF
             getRenderPage((domain.sitestyle >= 2) ? 'login2' : 'login', req, domain),
             getRenderArgs({
                 loginmode: loginmode,
-                rootCertLink: getRootCertLink(domain),
+                // rootCertLink: getRootCertLink(domain),
                 newAccount: newAccountsAllowed, // True if new accounts are allowed from the login page
                 newAccountPass: (((domain.newaccountspass == null) || (domain.newaccountspass == '')) ? 0 : 1), // 1 if new account creation requires password
                 newAccountCaptcha: newAccountCaptcha, // If new account creation requires a CAPTCHA, this string will not be empty
