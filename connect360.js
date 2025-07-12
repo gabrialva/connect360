@@ -159,7 +159,7 @@ function CreateMeshCentralServer(config, args) {
         for (i in obj.config.settings) { obj.args[i] = obj.config.settings[i]; } // Place all settings into arguments, arguments have already been placed into settings so arguments take precedence.
 
         if ((obj.args.help == true) || (obj.args['?'] == true)) {
-            console.log('MeshCentral v' + getCurrentVersion() + ', remote computer management web portal.');
+            console.log('Connect360 v' + getCurrentVersion() + ', remote computer management web portal.');
             console.log('This software is open source under Apache 2.0 license.');
             console.log('Details at: https://www.meshcentral.com\r\n');
             if ((obj.platform == 'win32') || (obj.platform == 'linux')) {
@@ -869,19 +869,19 @@ function CreateMeshCentralServer(config, args) {
                 obj.syslog = require('modern-syslog');
                 console.log('Starting ' + config.settings.syslog + ' syslog.');
                 obj.syslog.init(config.settings.syslog, obj.syslog.LOG_PID | obj.syslog.LOG_ODELAY, obj.syslog.LOG_LOCAL0);
-                obj.syslog.log(obj.syslog.LOG_INFO, "MeshCentral v" + getCurrentVersion() + " Server Start");
+                obj.syslog.log(obj.syslog.LOG_INFO, "Connect360 v" + getCurrentVersion() + " Server Start");
             }
             if (typeof config.settings.syslogjson == 'string') {
                 obj.syslogjson = require('modern-syslog');
                 console.log('Starting ' + config.settings.syslogjson + ' JSON syslog.');
                 obj.syslogjson.init(config.settings.syslogjson, obj.syslogjson.LOG_PID | obj.syslogjson.LOG_ODELAY, obj.syslogjson.LOG_LOCAL0);
-                obj.syslogjson.log(obj.syslogjson.LOG_INFO, "MeshCentral v" + getCurrentVersion() + " Server Start");
+                obj.syslogjson.log(obj.syslogjson.LOG_INFO, "Connect360 v" + getCurrentVersion() + " Server Start");
             }
             if (typeof config.settings.syslogauth == 'string') {
                 obj.syslogauth = require('modern-syslog');
                 console.log('Starting ' + config.settings.syslogauth + ' auth syslog.');
                 obj.syslogauth.init(config.settings.syslogauth, obj.syslogauth.LOG_PID | obj.syslogauth.LOG_ODELAY, obj.syslogauth.LOG_LOCAL0);
-                obj.syslogauth.log(obj.syslogauth.LOG_INFO, "MeshCentral v" + getCurrentVersion() + " Server Start");
+                obj.syslogauth.log(obj.syslogauth.LOG_INFO, "Connect360 v" + getCurrentVersion() + " Server Start");
             }
         }
         // Setup TCP syslog support, this works on all OS's.
@@ -893,7 +893,7 @@ function CreateMeshCentralServer(config, args) {
                 const sp = config.settings.syslogtcp.split(':');
                 obj.syslogtcp = syslog.createClient(parseInt(sp[1]), sp[0]);
             }
-            obj.syslogtcp.log("MeshCentral v" + getCurrentVersion() + " Server Start", obj.syslogtcp.LOG_INFO);
+            obj.syslogtcp.log("Connect360 v" + getCurrentVersion() + " Server Start", obj.syslogtcp.LOG_INFO);
         }
 
         // Check top level configuration for any unrecognized values
@@ -1826,7 +1826,7 @@ function CreateMeshCentralServer(config, args) {
         // Write server version and run mode
         const productionMode = (process.env.NODE_ENV && (process.env.NODE_ENV == 'production'));
         const runmode = (obj.args.lanonly ? 2 : (obj.args.wanonly ? 1 : 0));
-        console.log("MeshCentral v" + getCurrentVersion() + ', ' + (["Hybrid (LAN + WAN) mode", "WAN mode", "LAN mode"][runmode]) + (productionMode ? ", Production mode." : '.'));
+        console.log("Connect360 v" + getCurrentVersion() + ', ' + (["Hybrid (LAN + WAN) mode", "WAN mode", "LAN mode"][runmode]) + (productionMode ? ", Production mode." : '.'));
 
         // Check that no sub-domains have the same DNS as the parent
         for (i in obj.config.domains) {
