@@ -1172,7 +1172,7 @@ module.exports.CertificateOperations = function (parent) {
         // If the mesh agent server certificate does not exist, create one
         var agentCertAndKey, agentCertificate, agentPrivateKey;
         if (r.agent == null) {
-            console.log("Generating MeshAgent certificate...");
+            console.log("Generating Connect360Agent certificate...");
             agentCertAndKey = obj.IssueWebServerCertificate(rootCertAndKey, true, 'MeshCentralAgentServer', country, organization, { }, strongCertificate);
             agentCertificate = obj.pki.certificateToPem(agentCertAndKey.cert);
             agentPrivateKey = obj.pki.privateKeyToPem(agentCertAndKey.key);
