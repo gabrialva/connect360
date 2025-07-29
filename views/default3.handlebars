@@ -3949,6 +3949,9 @@
                                 node.users = message.event.node.users;
                                 node.host = message.event.node.host;
                                 node.desc = message.event.node.desc;
+                                node.warranty = message.event.node.warranty
+                                node.purchase = message.event.node.purchase
+                                node.location = message.event.node.location
                                 node.ip = message.event.node.ip;
                                 node.osdesc = message.event.node.osdesc;
                                 node.publicip = message.event.node.publicip;
@@ -5331,6 +5334,7 @@
                 }
 
                 if (node.desc && (deviceViewSettings.devsCols.indexOf('desc') >= 0)) { name = '<div class="flex-grow-1">' + name + '</div><div style=float:right' + (stars[node._id] == 1 ? ';padding-right:15px' : '') + '>' + EscapeHtml(node.desc) + '</div>'; }
+                if (node.warranty && (deviceViewSettings.devsCols.indexOf('warranty') >= 0)) { name = '<div class="flex-grow-1">' + name + '</div><div style=float:right' + (stars[node._id] == 1 ? ';padding-right:15px' : '') + '>' + EscapeHtml(node.warranty) + '</div>'; }
 
                 var collapseName = node.meshid;
                 if (sort == 1) { collapseName = ('pwr:' + (node.pwr ? node.pwr : 0)); }
@@ -8159,6 +8163,30 @@
                     x += addDeviceAttribute("Description", description);
                 }
 
+                // Attribute: Warrany Status
+                var warrantyStatus = node.warranty ? EscapeHtml(node.warranty) : ('<i>' + "None" + '</i>');
+                if ((meshrights & 4) != 0) {
+                    x += addDeviceAttribute("Warranty Status", '<span onclick=showEditNodeValueDialog(4) style=cursor:pointer>' + warrantyStatus + ' <i class="fa-solid fa-pencil fa-xs" role="button"></i></span>');
+                } else {
+                    x += addDeviceAttribute("Warranty Status", warrantyStatus);
+                }
+
+                // Attribute: Purchase Date
+                var dateOfPurchase = node.purchase ? EscapeHtml(node.purchase) : ('<i>' + "None" + '</i>');
+                if ((meshrights & 4) != 0) {
+                    x += addDeviceAttribute("Date of Purchase", '<span onclick=showEditNodeValueDialog(5) style=cursor:pointer>' + dateOfPurchase + ' <i class="fa-solid fa-pencil fa-xs" role="button"></i></span>');
+                } else {
+                    x += addDeviceAttribute("Date of Purchase", dateOfPurchase);
+                }
+
+                // Attribute: Location
+                var nodeLocation = node.location ? EscapeHtml(node.location) : ('<i>' + "None" + '</i>');
+                if ((meshrights & 4) != 0) {
+                    x += addDeviceAttribute("Location", '<span onclick=showEditNodeValueDialog(6) style=cursor:pointer>' + nodeLocation + ' <i class="fa-solid fa-pencil fa-xs" role="button"></i></span>');
+                } else {
+                    x += addDeviceAttribute("Location", nodeLocation);
+                }
+
                 // IP-KVM / PDU information
                 if (node.mtype == 4) {
                     if (node.portnum != null) { x += addDeviceAttribute("Port Number", node.portnum); }
@@ -8334,7 +8362,7 @@
                 var connectivity = node.conn;
                 {{!-- if (connectivity && (connectivity > 1)) {
                     var cstate = [];
-                    if ((node.conn & 1) != 0) cstate.push('<span title="' + "Mesh agent is connected and ready for use." + '">' + "Connect360 Agent" + '</span>');
+                    if ((node.conn & 1) != 0) cstate.push('<span title="' + "Connect360 agent is connected and ready for use." + '">' + "Connect360 Agent" + '</span>');
                     if ((node.conn & 2) != 0) cstate.push('<span title="' + "Intel&reg; AMT CIRA is connected and ready for use." + '">' + "Intel&reg; AMT CIRA" + '</span>');
                     else if ((node.conn & 4) != 0) cstate.push('<span title="' + "Intel&reg; AMT is routable and ready for use." + '">' + "Intel&reg; AMT" + '</span>');
                     if ((node.conn & 8) != 0) cstate.push('<span title="' + "Mesh agent is reachable using another agent as relay." + '">' + "Mesh Relay" + '</span>');
@@ -9722,10 +9750,10 @@
         }
         function showClearRdpDialogEx(button, mode) { meshserver.send({ action: 'changedevice', nodeid: currentNode._id, rdp: 0 }); }
 
-        var showEditNodeValueDialog_modes = ["Device Name", "Hostname", "Description", "Tags"];
-        var showEditNodeValueDialog_modes2 = ['name', 'host', 'desc', 'tags'];
-        var showEditNodeValueDialog_modes3 = ['', '', '', "Tag1, Tag2, Tag3"];
-        var showEditNodeValueDialog_modes4 = [64, 64, 64, 4096];
+        var showEditNodeValueDialog_modes = ["Device Name", "Hostname", "Description", "Tags", "Warranty Status", "Date of Purchase", "Location"];
+        var showEditNodeValueDialog_modes2 = ['name', 'host', 'desc', 'tags', 'warranty', 'purchase', 'location'];
+        var showEditNodeValueDialog_modes3 = ['', '', '', "Tag1, Tag2, Tag3", ''];
+        var showEditNodeValueDialog_modes4 = [64, 64, 64, 4096, 4096];
         function showEditNodeValueDialog(mode) {
             if (xxdialogMode) return;
             var x = '';

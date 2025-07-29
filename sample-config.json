@@ -25,8 +25,9 @@
             "companyName": "Connect360 Company",
             "serviceName": "Connect360 Service",
             "fileName": "Connect360_Agent",
-            "foregroundColor": "#FFA500",
-            "backgroundColor": "#000000"
+            "image" : "logo.jpg",
+            "foregroundColor": "#123461",
+            "backgroundColor": "#ffffff"
         }
     }
   },
